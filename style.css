@@ -3,10 +3,8 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   color: aliceblue;
-  
-
 }
 
 .main-header {
@@ -30,7 +28,7 @@ body {
   margin: 0;
   font-size: 3em;
   font-weight: normal;
-  border-bottom: 1px solid #52B788;
+  border-bottom: 1px solid #52b788;
   width: 50%;
 }
 #background {
@@ -40,21 +38,19 @@ body {
   flex-direction: column;
   background-image: url(./public/stars.gif);
 }
-#compare{
+#compare {
   background-color: black;
   height: 20rem;
   padding-left: 5rem;
-
 }
 #foreground {
   padding: 3px;
-  background-color: #02010A;
+  background-color: #02010a;
   margin-left: 5rem;
   margin-right: 5rem;
 }
 .mutators {
-
-  border: 1px solid #52B788;
+  border: 1px solid #52b788;
   margin-bottom: 1rem;
   padding: 0.5rem;
   background-color: black;
@@ -65,27 +61,26 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 .card {
   width: 30%;
-  border: 1px solid #52B788;
+  border: 1px solid #52b788;
   margin: 15px;
 }
 
 .albumBox {
-  background-color: #081C15;
+  background-color: #081c15;
   align-items: end;
-  gap:1rem;
-  display:flex;
-  border-bottom: 1px solid #52B788;
+  gap: 1rem;
+  display: flex;
+  border-bottom: 1px solid #52b788;
 }
 
 .details p {
-  color:lightslategray;
+  color: lightslategray;
 }
 .details p:hover {
-  color:#B7E4C7;
+  color: #b7e4c7;
   cursor: pointer;
 }
 .card-content {
@@ -111,23 +106,21 @@ body {
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  border-bottom: 1px solid #2D6A4F;
-  color: #52B788;
+  border-bottom: 1px solid #2d6a4f;
+  color: #52b788;
   font-size: large;
   list-style: none;
 }
-.card-content #songs li a{
-  
-  color: #52B788;
+.card-content #songs li a {
+  color: #52b788;
   font-size: large;
 }
 .card-content #songs li a:hover {
-  color:#2D6A4F;
+  color: #2d6a4f;
   cursor: pointer;
-
 }
-.card-content #songs li:last-child  {
-  border-bottom: none; 
+.card-content #songs li:last-child {
+  border-bottom: none;
 }
 
 .artistDetails li:last-child {
@@ -135,7 +128,7 @@ body {
 }
 
 .card-content a:hover {
-  color:#52B788;
+  color: #52b788;
 }
 .card img {
   width: 150px;
@@ -154,16 +147,16 @@ body {
   background-color: #1b1b1b;
   color: lightgray;
   padding: 1rem;
-  border: 1px solid #52B788;
+  border: 1px solid #52b788;
   border-radius: 5px;
   font-size: 1rem;
 }
-.artistDetails li{
+.artistDetails li {
   list-style: none;
-  border-bottom: 1px solid #2D6A4F;
+  border-bottom: 1px solid #2d6a4f;
   padding: 1rem;
 }
-.artistDetails ul{
+.artistDetails ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -175,15 +168,14 @@ body {
 #scrollToTop {
   background-color: black;
   color: aliceblue;
-  border: 1px solid #52B788;
+  border: 1px solid #52b788;
   animation: pulse 1s infinite;
-
 }
 #scrollToTop:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 .albumFooter {
-  border-top: 1px solid #52B788;
+  border-top: 1px solid #52b788;
   background-color: #1b1b1b;
   height: 3rem;
   justify-self: end;
@@ -215,4 +207,28 @@ body {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
+}
+.important {
+  background: linear-gradient(100deg, red, yellow, green, blue, violet);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+#searchBar {
+  background-color: black;
+  height: 3rem;
+  width: 20rem;
+  color: aliceblue;
+  font-size: large;
+  border: 1px solid #52b788;
+  padding: 0.5rem;
+}
+#searchBar:focus {
+  border: 1px solid #2d6a4f;
+  outline: none;
+}
+#searchBar::placeholder {
+  font-family: sans-serif;
+  color: lightslategray;
 }

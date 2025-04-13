@@ -1,4 +1,5 @@
 import data from "./data.js";
+import { searchBar } from "./dataOperations.js";
 const { albums } = data;
 console.log(albums);
 
@@ -83,5 +84,7 @@ function editCardContent(card, album) {
   scroller.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   })
+
+
 // This calls the addCards() function when the page is first loaded
 document.addEventListener("DOMContentLoaded", showCards);
