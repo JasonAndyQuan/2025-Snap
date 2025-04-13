@@ -87,7 +87,6 @@ body {
 .details p:hover {
   color:#B7E4C7;
   cursor: pointer;
-
 }
 .card-content {
   display: flex;
@@ -99,16 +98,26 @@ body {
   margin-top: 0;
   font-size: x-large;
 }
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
 .card-content #songs {
   padding-right: 2rem;
 }
 .card-content #songs li {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
   border-bottom: 1px solid #2D6A4F;
-  padding: 0.5rem;
-
+  color: #52B788;
+  font-size: large;
   list-style: none;
 }
 .card-content #songs li a{
+  
   color: #52B788;
   font-size: large;
 }
@@ -118,8 +127,7 @@ body {
 
 }
 .card-content #songs li:last-child  {
-  border-bottom: none;
-  
+  border-bottom: none; 
 }
 
 .artistDetails li:last-child {
@@ -174,7 +182,13 @@ body {
 #scrollToTop:hover {
   cursor:pointer;
 }
-
+.albumFooter {
+  border-top: 1px solid #52B788;
+  background-color: #1b1b1b;
+  height: 3rem;
+  justify-self: end;
+  padding-left: 1rem;
+}
 
 @keyframes pulse {
   0% {

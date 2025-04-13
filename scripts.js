@@ -17,6 +17,17 @@ function showCards() {
   }
 }
 
+function formatMilliseconds(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  // Pad seconds with a leading zero if needed
+  const paddedSeconds = seconds.toString().padStart(2, '0');
+
+  return `${minutes}:${paddedSeconds}`;
+}
+
 function editCardContent(card, album) {
   card.style.display = "block";
 
@@ -49,18 +60,23 @@ function editCardContent(card, album) {
   artistDetails.appendChild(groupMembers);
 
   const trackList = card.querySelector("#songs");
+  let totalSeconds = 0;
   for (let i = 0; i < album.tracks.items.length; i++) {
     const track = album.tracks.items[i];
     const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.target = "_blank";
-    a.textContent = track.name;
-    a.href = track.external_urls.spotify;
-    li.appendChild(a);
+    const trackName = document.createElement("a");
+    const trackLength = document.createElement("p");
+    trackName.target = "_blank";
+    trackName.textContent = track.name;
+    trackLength.textContent = formatMilliseconds(track.duration_ms);
+    trackName.href = track.external_urls.spotify;
+    li.appendChild(trackName);
+    li.appendChild(trackLength);
     trackList.appendChild(li);
+    totalSeconds += track.duration_ms;
    }
-
-  // console.log("new card:", newTitle, "- html: ", card);
+   const albumFooter = card.querySelector(".albumFooter p");
+   albumFooter.textContent = `${album.total_tracks} songs | Runtime: ${formatMilliseconds(totalSeconds)}`;
 }
 
   const scroller = document.querySelector("#scrollToTop");
