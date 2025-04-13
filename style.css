@@ -171,7 +171,8 @@ body {
   background-color: black;
   color: aliceblue;
   border: 1px solid #52b788;
-  animation: pulse 1s infinite;
+  animation: pulse 0.5s infinite;
+  padding: 0.2rem;
 }
 #scrollToTop:hover {
   cursor: pointer;
@@ -242,6 +243,13 @@ body {
   width: 100%;
   display: flex;
   justify-content: end;
+}
+button {
+  all: unset;
+}
+
+button:focus {
+  outline: revert;
 }
 #addButton {
   background-image: linear-gradient(45deg, #2D6A4F, #1B4332, #081C15);

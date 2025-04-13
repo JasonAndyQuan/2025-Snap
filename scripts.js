@@ -53,7 +53,10 @@ function editCardContent(card, album) {
   artistDebut.textContent = "Debut: " + album.artists[0].debut;
   groupMembers.textContent = "Members: ";
   for (let i = 0; i < album.artists[0].members.length;i++){
-    groupMembers.textContent += album.artists[0].members[i] + ", ";
+    groupMembers.textContent += album.artists[0].members[i] ;
+    if (i != album.artists[0].members.length - 1)
+      groupMembers.textContent += ", " ;
+
   }
 
   artistDetails.appendChild(artist);
@@ -77,7 +80,7 @@ function editCardContent(card, album) {
     totalSeconds += track.duration_ms;
    }
    const albumFooter = card.querySelector(".albumFooter p");
-   albumFooter.textContent = `${album.total_tracks} songs | Runtime: ${formatMilliseconds(totalSeconds)}`;
+   albumFooter.textContent = `${album.total_tracks} songs | Runtime: ${formatMilliseconds(totalSeconds)} | Popularity score: ${album.popularity} / 100`;
 }
 
   const scroller = document.querySelector("#scrollToTop");
