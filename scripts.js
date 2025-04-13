@@ -1,22 +1,6 @@
-
-
-// import data from "./data.js";
-// console.log(data);
-const FRESH_PRINCE_URL =
-  "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
-const CURB_POSTER_URL =
-  "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL =
-  "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
-
-// This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
-];
-// Your final submission should have much more data than this, and
-// you should use more than just an array of strings to store it all.
+import data from "./data.js";
+const { albums } = data;
+console.log(albums);
 
 // This function adds cards the page to display the data in the array
 function showCards() {
@@ -24,50 +8,64 @@ function showCards() {
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
 
-  for (let i = 0; i < 100; i++) {
-    let title = titles[i%titles.length];
-
-
-    let imageURL = "";
-    if (i%titles.length == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i%titles.length == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i%titles.length == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
-    }
+  for (let i = 0; i < albums.length; i++) {
+    let currentAlbum = albums[i];
 
     const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
+    editCardContent(nextCard, currentAlbum); // Edit title and image
     cardContainer.appendChild(nextCard); // Add new card to the container
   }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
+function editCardContent(card, album) {
   card.style.display = "block";
 
-  const cardHeader = card.querySelector("h2");
-  cardHeader.textContent = newTitle;
+  const albumName = card.querySelector("a");
+  albumName.textContent =
+  album.name + " (" + album.release_date.slice(0, 4) + ")";
+  albumName.href = album.external_urls.spotify;
+  albumName.target = "_blank";
 
-  const cardImage = card.querySelector("img");
-  cardImage.src = newImageURL;
-  cardImage.alt = newTitle + " Poster";
+  const albumCover = card.querySelector("img");
+  albumCover.src = album.images[0].url;
+  albumCover.alt = album.name + " Poster";
+  const albumArtist = card.querySelector(".details p");
+  albumArtist.textContent = album.artists[0].name;
 
+  const artistDetails = card.querySelector(".artistDetails ul");
+  const artist = document.createElement("li");
+  const artistDebut = document.createElement("li");
+  const groupMembers = document.createElement("li");
 
-  console.log("new card:", newTitle, "- html: ", card);
+  artist.textContent = albumArtist.textContent ;
+  artistDebut.textContent = "Debut: " + album.artists[0].debut;
+  groupMembers.textContent = "Members: ";
+  for (let i = 0; i < album.artists[0].members.length;i++){
+    groupMembers.textContent += album.artists[0].members[i] + ", ";
+  }
+
+  artistDetails.appendChild(artist);
+  artistDetails.appendChild(artistDebut);
+  artistDetails.appendChild(groupMembers);
+
+  const trackList = card.querySelector("#songs");
+  for (let i = 0; i < album.tracks.items.length; i++) {
+    const track = album.tracks.items[i];
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.target = "_blank";
+    a.textContent = track.name;
+    a.href = track.external_urls.spotify;
+    li.appendChild(a);
+    trackList.appendChild(li);
+   }
+
+  // console.log("new card:", newTitle, "- html: ", card);
 }
 
+  const scroller = document.querySelector("#scrollToTop");
+  scroller.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  })
 // This calls the addCards() function when the page is first loaded
 document.addEventListener("DOMContentLoaded", showCards);
-
-function quoteAlert() {
-  console.log("Button Clicked!");
-  alert(
-    "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!"
-  );
-}
-
-function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
-  showCards(); // Call showCards again to refresh
-}

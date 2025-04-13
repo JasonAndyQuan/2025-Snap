@@ -5,6 +5,7 @@ body {
   overflow-x: hidden;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   color: aliceblue;
+  
 
 }
 
@@ -19,6 +20,7 @@ body {
 .footer {
   display: flex;
   justify-content: center;
+  gap: 0.5rem;
   background-color: black;
   padding: 10px;
 }
@@ -38,7 +40,7 @@ body {
   flex-direction: column;
   background-image: url(./public/stars.gif);
 }
-#current-favorite{
+#compare{
   background-color: black;
   height: 20rem;
   padding-left: 5rem;
@@ -63,27 +65,140 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
 }
 .card {
-  width: 300px;
+  width: 30%;
+  border: 1px solid #52B788;
+  margin: 15px;
+}
+
+.albumBox {
+  background-color: #081C15;
+  align-items: end;
+  gap:1rem;
+  display:flex;
+  border-bottom: 1px solid #52B788;
+}
+
+.details p {
+  color:lightslategray;
+}
+.details p:hover {
+  color:#B7E4C7;
+  cursor: pointer;
+
+}
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+.card-content a {
+  color: aliceblue;
+  text-decoration: none;
+  margin-top: 0;
+  font-size: x-large;
+}
+.card-content #songs {
+  padding-right: 2rem;
+}
+.card-content #songs li {
+  border-bottom: 1px solid #2D6A4F;
+  padding: 0.5rem;
+
+  list-style: none;
+}
+.card-content #songs li a{
+  color: #52B788;
+  font-size: large;
+}
+.card-content #songs li a:hover {
+  color:#2D6A4F;
+  cursor: pointer;
+
+}
+.card-content #songs li:last-child  {
+  border-bottom: none;
+  
+}
+
+.artistDetails li:last-child {
+  border-bottom: none;
+}
+
+.card-content a:hover {
+  color:#52B788;
+}
+.card img {
+  width: 150px;
+  height: 150px;
+}
+
+.details {
+  position: relative; /* so the tooltip can be positioned inside this box */
+}
+
+.artistDetails {
+  display: none;
+  position: absolute;
+  top: 1;
+  left: 0;
+  background-color: #1b1b1b;
+  color: lightgray;
+  padding: 1rem;
   border: 1px solid #52B788;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 5px;
+  font-size: 1rem;
+}
+.artistDetails li{
+  list-style: none;
+  border-bottom: 1px solid #2D6A4F;
+  padding: 1rem;
+}
+.artistDetails ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.card-content {
-  padding: 20px;
-  color: #777;
+.details p:hover + .artistDetails {
+  display: block;
+}
+#scrollToTop {
+  background-color: black;
+  color: aliceblue;
+  border: 1px solid #52B788;
+  animation: pulse 1s infinite;
+
+}
+#scrollToTop:hover {
+  cursor:pointer;
 }
 
-.card-content h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
 
-.card img {
-  width: 100%;
-  height: auto;
-}
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
 
+  25% {
+    transform: scale(0.975);
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.35);
+  }
+
+  50% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+
+  75% {
+    transform: scale(0.975);
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
