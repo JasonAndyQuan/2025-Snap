@@ -1,4 +1,4 @@
-import data from "./data.js";
+import data from "./data.js"; //DATA SOURCE
 import { searchBar } from "./dataOperations.js";
 const { albums } = data;
 console.log(albums);

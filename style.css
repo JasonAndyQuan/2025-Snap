@@ -67,9 +67,9 @@ body {
   border: 1px solid #52b788;
   margin: 15px;
 }
-
 .albumBox {
   background-color: #081c15;
+  height: 150px;
   align-items: end;
   gap: 1rem;
   display: flex;
@@ -136,7 +136,9 @@ body {
 }
 
 .details {
-  position: relative; /* so the tooltip can be positioned inside this box */
+  width: 100%;
+  position: relative; 
+
 }
 
 .artistDetails {
@@ -209,7 +211,7 @@ body {
   }
 }
 .important {
-  background: linear-gradient(100deg, red, yellow, green, blue, violet);
+  background: linear-gradient(45deg, red, yellow, green, blue, violet);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   font-weight: bold;
@@ -228,6 +230,35 @@ body {
   border: 1px solid #2d6a4f;
   outline: none;
 }
+.rightBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+.addArea {
+  height: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+#addButton {
+  background-image: linear-gradient(45deg, #2D6A4F, #1B4332, #081C15);
+  background-size: 300%;
+  background-position: left center;
+  text-align: center;
+  padding: 0.3rem;
+  border-bottom: 1px solid #52b788;
+  border-left: 1px solid #52b788;
+  transition: background-position 0.25s ease;
+}
+
+#addButton:hover {
+  cursor: pointer;
+  background-position: right center;
+}
+
 #searchBar::placeholder {
   font-family: sans-serif;
   color: lightslategray;

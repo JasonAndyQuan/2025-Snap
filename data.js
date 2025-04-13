@@ -1,4 +1,6 @@
-const data = {
+const data = { 
+  // This data was fetched thru Spotify API 
+  // (https://developer.spotify.com/documentation/web-api/)
   albums: [
     {
       album_type: "album",
