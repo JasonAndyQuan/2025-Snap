@@ -1,35 +1,96 @@
 import data from "./data.js"; //DATA SOURCE
-import { searchBar, formatMilliseconds } from "./dataOperations.js";
+import { searchBar, formatMilliseconds, handleSort } from "./dataOperations.js";
 const { albums } = data;
 console.log(albums);
 
 // This function adds cards the page to display the data in the array
 const selected = new Set();
-function handleRemove(album){
+function handleRemove(album) {
   selected.delete(album);
   console.log(selected);
   showSelected();
 }
-function showCards() {
+
+
+function showButtons() {
+  const sortingOptions = [
+    "Release-Date",
+    "Alphabetical",
+    "Runtime",
+    "Track-count",
+    "Popularity",
+  ];
+  const filteringOptions = ["Artist", "Genre"];
+  const possibleArtists = new Set();
+  const possibleGenres = new Set();
+  for (const album of albums) {
+    possibleArtists.add(album.artists[0].name);
+    for (const genre of album.genres) possibleGenres.add(genre);
+  }
+
+  console.log(possibleArtists);
+  console.log(possibleGenres);
+  const sorts = document.querySelector(".dropDown");
+  const sortDropdownToggler = document.querySelector("#sorts .toggle")
+  sortDropdownToggler.addEventListener("click", () =>{
+    sorts.style.display = (sorts.style.display == "none") ? "flex" : "none";
+    sortDropdownToggler.style.display = "none";
+    console.log(sorts);
+  })
+
+  const filters = document.querySelector("#filters");
+  for (const option of sortingOptions){
+    const container = document.createElement("li");
+    const sortButton = document.createElement("button");
+    sortButton.textContent = option;
+    sortButton.classList.add(option);
+    sortButton.addEventListener(("click"), ()=>{
+      showCards(handleSort(albums, option))
+      sortDropdownToggler.style.display = "flex";
+      sorts.style.display = "none";
+      sortDropdownToggler.textContent = option;
+    })
+    container.appendChild(sortButton);
+    sorts.appendChild(container);
+  }
+}
+/**
+ *         <div class="mutators">
+          <h3 id="sorts">Sort by ...
+            <div class="dropDown"></div>
+          </h3>
+          <h3 id="filters">Filter by ...
+            <div class="artistDropdown"></div>
+            <div class="genres"> </div>
+          </h3>
+          <input
+            type="search"
+            id="searchBar"
+            placeholder="Search Album name or Date"
+          />
+        </div>
+ */
+
+function showCards(view) {
   const cardContainer = document.getElementById("card-container");
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
-  for (let i = 0; i < albums.length; i++) {
-    let currentAlbum = albums[i];
+  for (let i = 0; i < view.length; i++) {
+    let currentAlbum = view[i];
     const nextCard = templateCard.cloneNode(true); // Copy the template card
     editCardContent(nextCard, currentAlbum); // Edit title and image
     cardContainer.appendChild(nextCard); // Add new card to the container
   }
 }
-function showSelected(){
+function showSelected() {
   const selectedContainer = document.getElementById("selectedContainer");
   const selectedTemplate = document.querySelector(".selectedCard");
 
-  selectedContainer.innerHTML="";
-  if (selected.size == 0 ) {
+  selectedContainer.innerHTML = "";
+  if (selected.size == 0) {
     const empty = document.createElement("p");
     empty.textContent =
-      "List currently empty, select albums from the catalogs below...";
+      "List currently empty, select albums from the catalog below...";
     selectedContainer.appendChild(empty);
   } else {
     for (const album of selected) {
@@ -39,17 +100,22 @@ function showSelected(){
     }
   }
   const matchPercentage = document.querySelector(".matchPercentage");
-  const percentage = (selected.size/albums.length)*100;
-matchPercentage.textContent = percentage + "% - " + 
-    (percentage < 10 ? "little to no match" :
-    (percentage < 25) ? "getting there ..." :
-    (percentage < 50) ? "Solid match ..." :
-    (percentage < 75) ? "Almost perfect ..." : "Perfect match !");
-
+  const percentage = (selected.size / albums.length) * 100;
+  matchPercentage.textContent =
+    percentage +
+    "% - " +
+    (percentage < 10
+      ? "little to no match"
+      : percentage < 25
+      ? "getting there ..."
+      : percentage < 50
+      ? "Solid match ..."
+      : percentage < 75
+      ? "Almost perfect ..."
+      : "Perfect match !");
 }
 
-
-function insertAlbumCover(card,album){
+function insertAlbumCover(card, album) {
   const albumName = card.querySelector("a");
   albumName.textContent =
     album.name + " (" + album.release_date.slice(0, 4) + ")";
@@ -67,13 +133,11 @@ function editSelectedContent(card, album) {
   const remove = card.querySelector("#removeButton");
   remove.addEventListener("click", () => {
     handleRemove(album);
-  })
+  });
 }
 function editCardContent(card, album) {
   card.style.display = "block";
   insertAlbumCover(card, album);
-
-
   const albumArtist = card.querySelector(".details p");
   albumArtist.textContent = album.artists[0].name;
 
@@ -111,6 +175,7 @@ function editCardContent(card, album) {
     trackList.appendChild(li);
     totalSeconds += track.duration_ms;
   }
+  album.runTime = totalSeconds;
   const albumFooter = card.querySelector(".albumFooter p");
   albumFooter.textContent = `${
     album.total_tracks
@@ -134,4 +199,8 @@ scroller.addEventListener("click", () => {
 });
 
 // This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", ()=> {showCards(); showSelected()});
+document.addEventListener("DOMContentLoaded", () => {
+  showCards(albums);
+  showSelected();
+  showButtons();
+});

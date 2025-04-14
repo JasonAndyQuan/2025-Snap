@@ -14,22 +14,30 @@
     <div id="background">
       <div id="compare">
         <h2>Save albums into here to check our "album compatibility" ...</h2>
-        <div id="selectedContainer"></div> 
-        <div class = "selectedCard" style="display: none">
+        <div id="selectedContainer"></div>
+        <div class="selectedCard" style="display: none">
           <div class="selectedDetails">
-            <img src="" alt="album cover"/>
+            <img src="" alt="album cover" />
             <a> Title </a>
           </div>
-          <button id="removeButton"> Remove </button>
+          <button id="removeButton">Remove</button>
         </div>
-        <h1 class="matchPercentage"> 0% - no match </h1>       
+        <h1 class="matchPercentage">0% - no match</h1>
       </div>
       <div id="foreground">
-        <h2>... from the following selection of my all-time favorites below ...</h2>
+        <h2>
+          ... from the following selection of my all-time favorites below ...
+        </h2>
         <div class="mutators">
-          <h3>Sort by ...</h3>  
-
-          <h3>Filter by ...</h3>
+          <h3 id="sorts">Sort by: 
+            <button class="toggle"> NONE SELECTED </button>
+            <ul class="dropDown" style="display: none"></ul>
+          </h3>
+          <h3 id="filters">Filter by: 
+            <div class="artistToggle"></div>
+            <div class="artistDropdown"></div>
+            <div class="genres"></div>
+          </h3>
           <input
             type="search"
             id="searchBar"

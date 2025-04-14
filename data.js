@@ -1907,7 +1907,7 @@ const data = {
       external_ids: {
         upc: "196922332012",
       },
-      genres: [],
+      genres: ["kpop"],
       label: "SOURCE MUSIC",
       popularity: 74,
     },
@@ -2123,7 +2123,7 @@ const data = {
       external_ids: {
         upc: "198704101359",
       },
-      genres: [],
+      genres: ["kpop"],
       label: "SOURCE MUSIC",
       popularity: 72,
     },
@@ -2339,7 +2339,7 @@ const data = {
       external_ids: {
         upc: "198704375187",
       },
-      genres: [],
+      genres: ["kpop"],
       label: "SOURCE MUSIC",
       popularity: 80,
     },
@@ -2555,11 +2555,10 @@ const data = {
       external_ids: {
         upc: "192641874413",
       },
-      genres: [],
+      genres: ["kpop"],
       label: "SOURCE MUSIC",
       popularity: 64,
     },
-  
 
     {
       album_type: "single",
@@ -4577,7 +4576,7 @@ const data = {
       external_ids: {
         upc: "5054197890017",
       },
-      genres: ["krnb, indie"],
+      genres: ["krnb", "indie"],
       label: "ADA Korea",
       popularity: 72,
     },
@@ -6292,7 +6291,7 @@ const data = {
       external_ids: {
         upc: "00602455695284",
       },
-      genres: ["indie, rnb"],
+      genres: ["indie","rnb"],
       label: "Republic Records",
       popularity: 56,
     },
