@@ -106,7 +106,7 @@ body {
   margin-bottom: 1rem;
   padding: 0.5rem;
   background-color: black;
-  height: 11rem;
+  max-height: 20rem;
 }
 
 #card-container {
@@ -270,7 +270,7 @@ body {
   font-size: 1.5rem;
 }
 
-#sorts .toggle {
+#sorts .toggle, #filters .artistToggle, .genresToggle  {
   height: 2rem;
   width: auto;
   padding: 0.1rem;
@@ -279,28 +279,50 @@ body {
   display: flex;
   align-items: center;
 }
-#sorts {
+#sorts, #filters div {
   width: 100%;
   align-items: center;
   display:flex;
 }
-#sorts button{
-  cursor:pointer;
+
+#filters li {
+  margin:0;
 }
-#sorts ul{
+#sorts ul, #filters ul{
   display: flex;
   margin: 1px;
   gap: 5rem;
-  background-color: #081c15;
-  border: 1px solid #52b788;
+  /* background-color: #081c15; */
+  /* border: 1px solid #52b788; */
+  border-bottom: 1px solid #52b788;
   padding: 3px;
   text-decoration: none;
   list-style: none;
 }
-#sorts li {
+
+.genres {
+  list-style: none;
+  padding: 1px; 
+} 
+.genres ul{
+  list-style: none;
+}
+.genres li{
+  width: 50px;
+}
+#filters ul, .genres ul {
+  gap: 0.3rem;
+  color: lightgray;
+  padding: 1rem;
+  /* border: 1px solid #52b788; */
+  font-size: 1rem;
+  overflow-x: auto;
+}
+#sorts li,  #filters li, .genres li {
   border: 1px solid #52b788;
   padding: 1px;
 }
+
 
 #searchBar {
   background-color: black;
@@ -335,7 +357,13 @@ button {
 button:focus {
   outline: revert;
 }
-.addButton, #removeButton, #sorts li, #sorts .toggle {
+
+.artistToggle  {
+  width: auto;
+  height: auto;
+}
+
+.addButton, #removeButton, #sorts li, #sorts .toggle, .artistToggle, #filters li, .genres li,.genresToggle {
   background-image: linear-gradient(45deg, #2d6a4f, #1b4332, #081c15);
   background-size: 300%;
   background-position: left center;
@@ -349,7 +377,10 @@ button:focus {
 .addButton:hover, 
 #removeButton:hover,
 #sorts li:hover,
-#sorts .toggle:hover {
+#sorts .toggle:hover,
+#filters .artistToggle:hover,
+#filters li:hover, .genres li:hover,
+.genresToggle:hover {
   cursor: pointer;
   background-position: right center;
 }
@@ -357,9 +388,9 @@ button:focus {
   background-image: linear-gradient(45deg, red, green);
   border-top: 1px solid #52b788;
   border-right: 1px solid #52b788;
-
   height: 50%;
 }
+
 
 #searchBar::placeholder {
   font-family: sans-serif;

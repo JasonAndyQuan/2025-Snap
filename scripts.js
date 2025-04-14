@@ -1,16 +1,22 @@
 import data from "./data.js"; //DATA SOURCE
-import { searchBar, formatMilliseconds, handleSort } from "./dataOperations.js";
+import {
+  searchBar,
+  formatMilliseconds,
+  handleSort,
+  handleFilter,
+} from "./dataOperations.js";
 const { albums } = data;
 console.log(albums);
 
-// This function adds cards the page to display the data in the array
+
+let currentDisplay = albums;
+
 const selected = new Set();
 function handleRemove(album) {
   selected.delete(album);
   console.log(selected);
   showSelected();
 }
-
 
 function showButtons() {
   const sortingOptions = [
@@ -20,9 +26,13 @@ function showButtons() {
     "Track-count",
     "Popularity",
   ];
-  const filteringOptions = ["Artist", "Genre"];
+
   const possibleArtists = new Set();
   const possibleGenres = new Set();
+  const effectiveFilters = {
+    artist: "",
+    genre: "",
+  };
   for (const album of albums) {
     possibleArtists.add(album.artists[0].name);
     for (const genre of album.genres) possibleGenres.add(genre);
@@ -31,45 +41,89 @@ function showButtons() {
   console.log(possibleArtists);
   console.log(possibleGenres);
   const sorts = document.querySelector(".dropDown");
-  const sortDropdownToggler = document.querySelector("#sorts .toggle")
-  sortDropdownToggler.addEventListener("click", () =>{
-    sorts.style.display = (sorts.style.display == "none") ? "flex" : "none";
-    sortDropdownToggler.style.display = "none";
-    console.log(sorts);
-  })
+  const sortDropdownToggler = document.querySelector("#sorts .toggle");
+  dropDownCreator(sorts, sortDropdownToggler, sortingOptions, handleSort);
+  const filters = document.querySelector("#filters .artistDropdown");
+  const filtersToggle = document.querySelector("#filters .artistToggle");
+  filterDropDownCreator(
+    filters,
+    filtersToggle,
+    possibleArtists,
+    handleFilter,
+    effectiveFilters,
+    true
+  );
 
-  const filters = document.querySelector("#filters");
-  for (const option of sortingOptions){
+  const genres = document.querySelector(".genres");
+  const genresToggle = document.querySelector(".genresToggle");
+
+  filterDropDownCreator(
+    genres,
+    genresToggle,
+    possibleGenres,
+    handleFilter,
+    effectiveFilters,
+    false
+  );
+}
+
+function dropDownCreator(parent, toggler, options, handleData) {
+  toggler.addEventListener("click", () => {
+    parent.style.display = parent.style.display == "none" ? "flex" : "none";
+    toggler.style.display = "none";
+  });
+  for (const option of options) {
     const container = document.createElement("li");
     const sortButton = document.createElement("button");
     sortButton.textContent = option;
-    sortButton.classList.add(option);
-    sortButton.addEventListener(("click"), ()=>{
-      showCards(handleSort(albums, option))
-      sortDropdownToggler.style.display = "flex";
-      sorts.style.display = "none";
-      sortDropdownToggler.textContent = option;
-    })
+    sortButton.addEventListener("click", () => {
+      currentDisplay = handleData(currentDisplay, option);
+      showCards(currentDisplay); // <---- MERGE SORT IS USED HERE, handleSort(albums[],"") can be found in dataOperations.js
+      toggler.style.display = "flex";
+      parent.style.display = "none";
+      toggler.textContent = option;
+    });
     container.appendChild(sortButton);
-    sorts.appendChild(container);
+    parent.appendChild(container);
   }
 }
-/**
- *         <div class="mutators">
-          <h3 id="sorts">Sort by ...
-            <div class="dropDown"></div>
-          </h3>
-          <h3 id="filters">Filter by ...
-            <div class="artistDropdown"></div>
-            <div class="genres"> </div>
-          </h3>
-          <input
-            type="search"
-            id="searchBar"
-            placeholder="Search Album name or Date"
-          />
-        </div>
- */
+function filterDropDownCreator(
+  parent,
+  toggler,
+  options,
+  handleData,
+  effectiveFilters,
+  isArtist
+) {
+  toggler.addEventListener("click", () => {
+    parent.style.display = parent.style.display == "none" ? "flex" : "none";
+    toggler.style.display = "none";
+  });
+  for (const option of Array.from(options)) {
+    const container = document.createElement("li");
+    const filterButton = document.createElement("button");
+    filterButton.textContent = option;
+    filterButton.addEventListener("click", () => {
+      toggler.addEventListener("click", () => {
+        if (isArtist) {
+          effectiveFilters.artist = "";
+        } else effectiveFilters.genre = "";
+        currentDisplay = handleData(albums, effectiveFilters);
+        showCards(currentDisplay); 
+      });
+      if (isArtist) {
+        effectiveFilters.artist = option;
+      } else effectiveFilters.genre = option;
+      currentDisplay = handleData(currentDisplay, effectiveFilters);
+      showCards(currentDisplay);
+      toggler.style.display = "flex";
+      parent.style.display = "none";
+      toggler.textContent = option;
+    });
+    container.appendChild(filterButton);
+    parent.appendChild(container);
+  }
+}
 
 function showCards(view) {
   const cardContainer = document.getElementById("card-container");

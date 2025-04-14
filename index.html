@@ -29,14 +29,22 @@
           ... from the following selection of my all-time favorites below ...
         </h2>
         <div class="mutators">
-          <h3 id="sorts">Sort by: 
-            <button class="toggle"> NONE SELECTED </button>
-            <ul class="dropDown" style="display: none"></ul>
+          <h3 id="sorts">
+            Sort by:
+            <button class="toggle" style="display: none"></button>
+            <ul class="dropDown"></ul>
           </h3>
-          <h3 id="filters">Filter by: 
-            <div class="artistToggle"></div>
-            <div class="artistDropdown"></div>
-            <div class="genres"></div>
+          <h3 id="filters">
+            <div>
+              Filter Artist:
+              <button class="artistToggle" style="display: none">></button>
+              <ul class="artistDropdown"></ul>
+            </div>
+            <div>
+              <h3>Filter Genres :</h3>
+              <button class="genresToggle" style="display: none">></button>
+              <ul class="genres"></ul>
+            </div>
           </h3>
           <input
             type="search"

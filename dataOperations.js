@@ -1,14 +1,11 @@
-import data from "./data.js";
-const { albums } = data;
-
 /*
 Data = {
   Albums = [
     Album = {
       popularity: int,
-      Runtime: int,
-      Track Count: int,
-      Release Date: string,
+      runTime: int,
+      total_tracks: int,
+      release_date: string,
       name: string,   (ALBUM NAME)
       genres: string[],     
       artist [
@@ -23,24 +20,7 @@ Data = {
     },
   ]
 }
-    const sortingOptions = ["Release Date", "Alphabetical","Runtime","Track count", "popularity"];
-    const filteringOptions = ["Artist", "Genre"];
-    const possibleArtists = newSet();
-    const possibleGenres = [];
 */
-
-// const sortingOptions = ["Release Date", "Alphabetical","Runtime","Track count", "popularity"];
-// const filteringOptions = ["Artist", "Genre"];
-// const activeFilters = {
-//   artist:"",
-//   genre:[],
-// }
-
-// function handleFilters(type, value){
-//   activeFilters = {
-
-//   }
-// }
 
 // Search Bar logic
 const searchBar = document.querySelector("input#searchBar");
@@ -69,7 +49,6 @@ function merge(left, right, comparator) {
   const result = [];
   let i = 0;
   let j = 0;
-
   while (i < left.length && j < right.length) {
     if (comparator(left[i], right[j])) {
       result.push(left[i++]);
@@ -83,7 +62,6 @@ function merge(left, right, comparator) {
 //merge sort the any given list, where list is the data and comparator makes the code compatible with multiple different conditions.
 function mergeSort(list, comparator) {
   if (list.length <= 1) return list;
-  
   const mid = Math.floor(list.length / 2);
   const left = mergeSort(list.slice(0, mid), comparator);
   const right = mergeSort(list.slice(mid), comparator);
@@ -92,14 +70,13 @@ function mergeSort(list, comparator) {
 
 function handleSort(list, option) {
   //possible options: "Release-Date","Alphabetical","Runtime","Track-count", "popularity"
-
   const comparator = //comparator will compare different elements of the object depending on what is selected.
   (option == "Popularity") ? 
     (l, r) => {
         return l.popularity > r.popularity;
     }
   : 
-    (option=="Track-count") ?  (l, r) => {
+    (option == "Track-count") ?  (l, r) => {
     return l.total_tracks > r.total_tracks;
   } : (option == "Runtime") ? (l,r) => {
     return l.runTime > r.runTime;
@@ -112,4 +89,18 @@ function handleSort(list, option) {
   return mergeSort(list, comparator);
 
 }
-export { searchBar, formatMilliseconds, handleSort };
+
+//Handles the filtering by checking if filters have been applied for the following categories: artist, genre, both.
+function handleFilter(list, filterOptions) {
+  console.log(filterOptions);
+  return list.filter((album) => {
+    const matchArtist = filterOptions.artist
+      ? album.artists[0].name === filterOptions.artist : true;
+    const matchGenre = filterOptions.genre
+      ? album.genres.includes(filterOptions.genre)
+      : true;
+    return matchArtist && matchGenre;
+  });
+}
+
+export { searchBar, formatMilliseconds, handleSort, handleFilter };
