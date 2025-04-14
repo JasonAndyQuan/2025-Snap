@@ -291,7 +291,7 @@ body {
 #sorts ul, #filters ul{
   display: flex;
   margin: 1px;
-  gap: 5rem;
+  gap: 0.5rem;
   /* background-color: #081c15; */
   /* border: 1px solid #52b788; */
   border-bottom: 1px solid #52b788;
