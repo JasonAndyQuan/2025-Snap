@@ -14,14 +14,20 @@
     <div id="background">
       <div id="compare">
         <h2>Save albums into here to check our "album compatibility" ...</h2>
-        <div>
-          <!-- card of stuff in here -->
+        <div id="selectedContainer"></div> 
+        <div class = "selectedCard" style="display: none">
+          <div class="selectedDetails">
+            <img src="" alt="album cover"/>
+            <a> Title </a>
+          </div>
+          <button id="removeButton"> Remove </button>
         </div>
+        <h1 class="matchPercentage"> 0% - no match </h1>       
       </div>
       <div id="foreground">
         <h2>... from the following selection of my all-time favorites below ...</h2>
         <div class="mutators">
-          <h3>Sort by ...</h3>
+          <h3>Sort by ...</h3>  
 
           <h3>Filter by ...</h3>
           <input
@@ -41,7 +47,7 @@
                 <img src="" alt="Album Cover" />
                 <div class="rightBox">
                   <div class="addArea">
-                    <button id="addButton">CLICK TO SELECT</button>
+                    <button class="addButton">CLICK TO SELECT</button>
                   </div>
                   <div class="details">
                     <a href="">Album title</a>
