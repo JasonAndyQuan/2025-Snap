@@ -1,11 +1,10 @@
 import data from "./data.js"; //DATA SOURCE
-import { searchBar } from "./dataOperations.js";
+import { searchBar, formatMilliseconds } from "./dataOperations.js";
 const { albums } = data;
 console.log(albums);
 
 // This function adds cards the page to display the data in the array
 const selected = new Set();
-
 function handleRemove(album){
   selected.delete(album);
   console.log(selected);
@@ -15,7 +14,6 @@ function showCards() {
   const cardContainer = document.getElementById("card-container");
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
-
   for (let i = 0; i < albums.length; i++) {
     let currentAlbum = albums[i];
     const nextCard = templateCard.cloneNode(true); // Copy the template card
@@ -49,47 +47,33 @@ matchPercentage.textContent = percentage + "% - " +
     (percentage < 75) ? "Almost perfect ..." : "Perfect match !");
 
 }
-function editSelectedContent(card, album) {
-  card.style.display = "flex";
+
+
+function insertAlbumCover(card,album){
   const albumName = card.querySelector("a");
   albumName.textContent =
     album.name + " (" + album.release_date.slice(0, 4) + ")";
-  
   albumName.href = album.external_urls.spotify;
   albumName.target = "_blank";
-
   const albumCover = card.querySelector("img");
   albumCover.src = album.images[0].url;
   albumCover.alt = album.name + " Poster";
+}
+
+function editSelectedContent(card, album) {
+  card.style.display = "flex";
+  insertAlbumCover(card, album);
 
   const remove = card.querySelector("#removeButton");
   remove.addEventListener("click", () => {
     handleRemove(album);
   })
-
 }
-
-function formatMilliseconds(ms) {
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-
-  const paddedSeconds = seconds.toString().padStart(2, "0");
-
-  return `${minutes}:${paddedSeconds}`;
-}
-
 function editCardContent(card, album) {
   card.style.display = "block";
-  const albumName = card.querySelector("a");
-  albumName.textContent =
-    album.name + " (" + album.release_date.slice(0, 4) + ")";
-  albumName.href = album.external_urls.spotify;
-  albumName.target = "_blank";
+  insertAlbumCover(card, album);
 
-  const albumCover = card.querySelector("img");
-  albumCover.src = album.images[0].url;
-  albumCover.alt = album.name + " Poster";
+
   const albumArtist = card.querySelector(".details p");
   albumArtist.textContent = album.artists[0].name;
 

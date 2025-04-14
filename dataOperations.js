@@ -13,7 +13,17 @@ searchBar.addEventListener("input", (e) => {
   }
 });
 
+//A function to convert milliseconds to the format (mm:ss)
+function formatMilliseconds(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const paddedSeconds = seconds.toString().padStart(2, "0");
+
+  return `${minutes}:${paddedSeconds}`;
+}
 
 
 
-export { searchBar };
+
+export { searchBar, formatMilliseconds };
