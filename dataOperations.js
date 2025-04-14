@@ -1,4 +1,6 @@
 /*
+Data schema:
+
 Data = {
   Albums = [
     Album = {
@@ -22,7 +24,7 @@ Data = {
 }
 */
 
-// Search Bar logic
+// Search Bar logic: Checks each children within the main-catalog for hits, and then hides if not applicable
 const searchBar = document.querySelector("input#searchBar");
 searchBar.addEventListener("input", (e) => {
   const cardContainer = document.getElementById("card-container");
@@ -44,7 +46,7 @@ function formatMilliseconds(ms) {
   return `${minutes}:${paddedSeconds}`;
 }
 
-//Helper function for merge sort
+//Helper function for merge the sort, where left and right and subarrays and the modulized comparator is used to different value types
 function merge(left, right, comparator) {
   const result = [];
   let i = 0;
@@ -59,7 +61,7 @@ function merge(left, right, comparator) {
   return result.concat(left.slice(i)).concat(right.slice(j));
 }
 
-//merge sort the any given list, where list is the data and comparator makes the code compatible with multiple different conditions.
+//merge sort the any given list, where list is the data and comparator makes the code compatible with multiple different dataTypes.
 function mergeSort(list, comparator) {
   if (list.length <= 1) return list;
   const mid = Math.floor(list.length / 2);
@@ -86,11 +88,10 @@ function handleSort(list, option) {
     return l.release_date.slice(0, 4) > r.release_date.slice(0, 4);
   } 
 
-  return mergeSort(list, comparator);
-
+  return mergeSort(list, comparator); //return a sorted list
 }
 
-//Handles the filtering by checking if filters have been applied for the following categories: artist, genre, both.
+//Handles the filtering by checking if filters have been applied for the following categories: artist, genre, or both.
 function handleFilter(list, filterOptions) {
   console.log(filterOptions);
   return list.filter((album) => {

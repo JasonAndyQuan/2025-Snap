@@ -9,15 +9,20 @@ const { albums } = data;
 console.log(albums);
 
 
+//currentDisplay allows data to be hidden and revealed via sorts/filters without affecting the actual data.
 let currentDisplay = albums;
 
+//selected is a set used to contain any Saved albums from the user
 const selected = new Set();
+
+//handleRemove is responsible for specific deleting albums off the saved albums list.
 function handleRemove(album) {
   selected.delete(album);
   console.log(selected);
   showSelected();
 }
 
+//showButtons is responsible for displaying the sorting/filtering/searching buttons and bars.
 function showButtons() {
   const sortingOptions = [
     "Release-Date",
@@ -27,6 +32,7 @@ function showButtons() {
     "Popularity",
   ];
 
+  //tally up the possible artists and genres with sets.
   const possibleArtists = new Set();
   const possibleGenres = new Set();
   const effectiveFilters = {
@@ -40,6 +46,8 @@ function showButtons() {
 
   console.log(possibleArtists);
   console.log(possibleGenres);
+
+  //Create dropdowns for the filterings and sortings
   const sorts = document.querySelector(".dropDown");
   const sortDropdownToggler = document.querySelector("#sorts .toggle");
   dropDownCreator(sorts, sortDropdownToggler, sortingOptions, handleSort);
@@ -67,6 +75,7 @@ function showButtons() {
   );
 }
 
+//This function creates a dropdown menu for the sort function
 function dropDownCreator(parent, toggler, options, handleData) {
   toggler.addEventListener("click", () => {
     parent.style.display = parent.style.display == "none" ? "flex" : "none";
@@ -87,6 +96,8 @@ function dropDownCreator(parent, toggler, options, handleData) {
     parent.appendChild(container);
   }
 }
+
+//this function creates a dropdown menu for the filtering function
 function filterDropDownCreator(
   parent,
   toggler,
@@ -125,6 +136,7 @@ function filterDropDownCreator(
   }
 }
 
+//this function takes in a view: album[], which is any given list of albums with or without filters/sorts
 function showCards(view) {
   const cardContainer = document.getElementById("card-container");
   cardContainer.innerHTML = "";
@@ -136,6 +148,8 @@ function showCards(view) {
     cardContainer.appendChild(nextCard); // Add new card to the container
   }
 }
+
+//this function displays the cards in the saved area
 function showSelected() {
   const selectedContainer = document.getElementById("selectedContainer");
   const selectedTemplate = document.querySelector(".selectedCard");
@@ -169,6 +183,7 @@ function showSelected() {
       : "Perfect match !");
 }
 
+//This is a helper function to load album data onto a template
 function insertAlbumCover(card, album) {
   const albumName = card.querySelector("a");
   albumName.textContent =
@@ -180,6 +195,7 @@ function insertAlbumCover(card, album) {
   albumCover.alt = album.name + " Poster";
 }
 
+//This function creates the cards in the catalogs by loading data from the albums onto the template
 function editSelectedContent(card, album) {
   card.style.display = "flex";
   insertAlbumCover(card, album);
@@ -247,6 +263,8 @@ function editCardContent(card, album) {
   });
 }
 
+
+//this function scrolls from the bottom to the top of the page.
 const scroller = document.querySelector("#scrollToTop");
 scroller.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
